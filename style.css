@@ -1,0 +1,136 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+/* Full-page lavender galaxy background */
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #362f47, #793767);
+  overflow: hidden;
+  position: relative;
+}
+
+/* Twinkling stars */
+.star {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  animation: twinkle 2s infinite alternate;
+}
+
+@keyframes twinkle {
+  0% { opacity: 0.2; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1.2); }
+  100% { opacity: 0.3; transform: scale(0.7); }
+}
+
+/* Login/Register container */
+.container {
+  z-index: 10;
+  background: rgba(10, 10, 30, 0.362);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 0 30px rgba(255,255,255,0.3);
+  width: 380px;
+  text-align: center;
+  color: #fff;
+  backdrop-filter: blur(10px);
+  animation: fadeIn 0.8s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Headings */
+.container h2 {
+  margin-bottom: 25px;
+  font-size: 2em;
+  color: #fff;
+  text-shadow: 0 0 15px #fff;
+}
+
+/* Input fields */
+.container input {
+  width: 100%;
+  padding: 12px 15px;
+  margin: 10px 0;
+  border: none;
+  border-radius: 12px;
+  outline: none;
+  font-size: 1em;
+  background: rgba(255,255,255,0.1);
+  color: #fff;
+}
+
+/* Buttons */
+.container button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(45deg, #a18cd1, #fbc2eb, #8e44ad);
+  color: #300d32;
+  font-size: 1em;
+  cursor: pointer;
+  margin-top: 15px;
+  transition: all 0.3s ease;
+}
+
+.container button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 15px #a18cd1, 0 0 25px #fbc2eb;
+}
+
+/* Password strength text */
+#strengthText {
+  text-align: left;
+  margin-top: 5px;
+  font-weight: 600;
+}
+
+/* CAPTCHA container */
+.g-recaptcha {
+  margin: 15px 0;
+}
+
+/* Links */
+.container p a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.container p a:hover {
+  color: #fbc2eb;
+  text-shadow: 0 0 8px #fbc2eb;
+  transform: scale(1.05);
+}
+
+/* Paragraphs */
+.container p {
+  margin-top: 15px;
+  font-size: 0.95em;
+}
+
+/* Mobile responsive */
+@media (max-width: 480px) {
+  .container {
+    width: 90%;
+    padding: 25px;
+  }
+  .container h2 {
+    font-size: 1.6em;
+  }
+}

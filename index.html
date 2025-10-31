@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h2>Login</h2>
+    <input id="username" maxlength="30" placeholder="Gmail ID">
+    <input id="password" type="password" placeholder="Password">
+    <div class="g-recaptcha" data-sitekey="6Lfoy-krAAAAAGBEwRr8I3-qxPj9CHHrIsoTQiBU"></div>
+    <button onclick="login()">Login</button>
+
+    <!-- Small box for Sign Up -->
+    <div style="display:flex; justify-content:center; align-items:center; margin-top:15px; gap:10px;">
+      <span style="color:#fff;">Don't have an account?</span>
+      <div onclick="window.location.href='register.html'" style="
+        padding:5px 10px;
+        background: rgba(105, 104, 104, 0.43);
+        color:#fff;
+        border-radius:6px;
+        cursor:pointer;
+        font-size:0.9em;
+        transition: all 0.3s ease;
+        text-align:center;
+      " onmouseover="this.style.background='rgba(255,255,255,0.35)'" 
+        onmouseout="this.style.background='rgba(255,255,255,0.2)'">
+        Sign Up
+      </div>
+    </div>
+
+    <p id="result" style="margin-top:10px;"></p>
+  </div>
+
+  <script>
+    function isValidGmail(username) {
+      const regex = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+      return regex.test(username);
+    }
+
+    async function login() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const token = grecaptcha.getResponse();
+      const result = document.getElementById('result');
+
+      if (!username || !password) {
+        result.style.color='red';
+        result.innerText="All fields are required.";
+        return;
+      }
+
+      if (!isValidGmail(username)) {
+        result.style.color='red';
+        result.innerText="Username must be a valid Gmail ID.";
+        return;
+      }
+
+      if (!token) {
+        result.style.color='red';
+        result.innerText = "Please complete CAPTCHA.";
+        return;
+      }
+
+      const res = await fetch('/login', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({username, password, token})
+      });
+
+      const data = await res.json();
+      if(data.success){
+        sessionStorage.setItem("username", username);
+        window.location.href = '/welcome';
+      } else {
+        result.style.color = 'red';
+        result.innerText = data.message;
+        grecaptcha.reset();
+      }
+    }
+  </script>
+
+  <!-- Galaxy stars JS -->
+  <script>
+    const body = document.body;
+    for(let i=0;i<150;i++){
+      const star=document.createElement('div');
+      star.className='star';
+      star.style.top=Math.random()*100+'vh';
+      star.style.left=Math.random()*100+'vw';
+      star.style.width=star.style.height=Math.random()*2+1+'px';
+      star.style.animationDuration=(Math.random()*2+1)+'s';
+      body.appendChild(star);
+    }
+  </script>
+
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+</body>
+</html>

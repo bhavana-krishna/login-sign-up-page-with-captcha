@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Welcome</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Welcome container */
+    .container {
+      z-index: 10;
+      background: rgba(10, 10, 30, 0.362);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 0 30px rgba(255,255,255,0.3);
+      width: 380px;
+      text-align: center;
+      color: #fff;
+      backdrop-filter: blur(10px);
+      margin: auto;
+      margin-top: 80px; /* center vertically a bit lower */
+    }
+
+    /* Logout button just below welcome text */
+    #logoutBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: linear-gradient(45deg, #a18cd1, #fbc2eb, #8e44ad);
+      color: #300d32;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: all 0.3s ease;
+    }
+
+    #logoutBtn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 15px #a18cd1, 0 0 25px #fbc2eb;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Welcome!</h2>
+    <p id="welcomeText"></p>
+
+    <!-- Logout Button below welcome text -->
+    <button id="logoutBtn" onclick="logout()">Logout</button>
+  </div>
+
+  <script>
+    const username = sessionStorage.getItem("username");
+    document.getElementById("welcomeText").innerText = username 
+      ? `Dear, ${username}` 
+      : "Welcome!";
+
+    function logout() {
+      sessionStorage.removeItem("username");
+      window.location.href = "index.html";
+    }
+  </script>
+
+  <!-- Galaxy stars JS -->
+  <script>
+    const body=document.body;
+    for(let i=0;i<150;i++){
+      const star=document.createElement('div');
+      star.className='star';
+      star.style.top=Math.random()*100+'vh';
+      star.style.left=Math.random()*100+'vw';
+      star.style.width=star.style.height=Math.random()*2+1+'px';
+      star.style.animationDuration=(Math.random()*2+1)+'s';
+      body.appendChild(star);
+    }
+  </script>
+</body>
+</html>
